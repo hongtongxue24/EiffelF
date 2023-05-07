@@ -1,0 +1,37 @@
+#Recursive
+import sys
+
+def F_recursive(n):
+    if n == 1:
+        return 1
+    return n * F_recursive(n-1)
+    
+max_n = 0 
+while True: 
+    try: 
+        F_recursive(max_n) 
+        max_n += 1 
+    except OverflowError:
+        print(f'Maximum n for recursive F(n) before crash: {max_n}')
+        break
+    except RecursionError:
+        print(f'Maximum n for recursive F(n) before crash: {max_n}')
+        break
+
+
+#Dynamic Programming
+def fib_dynamic(n):
+    dp = [0] * (n + 1)
+    dp[1] = 1
+
+    for i in range(2, n + 1):
+        dp[i] = dp[i - 1] + dp[i - 2]
+
+    return dp[n]
+
+try:
+    result = fib_dynamic(max_n + 1)
+    print(f"F({max_n + 1}): {result}")
+    print("No crash occurred when using dynamic programming.")
+except RuntimeError:
+    print("Crash occurred when using dynamic programming.")
