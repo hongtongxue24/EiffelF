@@ -1,0 +1,36 @@
+import time
+import matplotlib.pyplot as plt
+
+def F_recursive(n):
+    if n == 1:
+        return 1
+    return n * F_recursive(n-1)
+
+def F_dynamic(n):
+    memo = [0] * (n+1)
+    memo[1] = 1
+    for i in range(2, n+1):
+        memo[i] = i * memo[i-1]
+    return memo[n]
+    
+n_values = range(10, 101, 10)
+times_recursive = []
+times_dynamic = []
+for i in n_values:
+    start = time.time()
+    F_recursive(i)
+    end = time.time()
+    times_recursive.append(end-start)
+    
+    start = time.time()
+    F_dynamic(i)
+    end = time.time()
+    times_dynamic.append(end-start)
+    
+plt.plot(n_values, times_recursive, label='Recursive')
+plt.plot(n_values, times_dynamic, label='Dynamic Programming')
+plt.legend()
+plt.xlabel('n')
+plt.ylabel('Time (s)')
+plt.title('Execution Time of F(n) vs. n')
+plt.show()
